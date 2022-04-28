@@ -1,0 +1,33 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - echo "Building..."
+    - echo "Build Complete"
+  tags:
+    - ocean-be
+  only:
+    - develop
+
+deploy:
+  variables:
+    GIT_STRATEGY: none
+    GIT_CHECKOUT: "false"
+  stage: deploy
+  script:
+
+    - echo "Starting deployment"
+    - cd /home/ubuntu/ocean_backend/
+    - echo "Changing Directory"
+    - pwd
+    - ./redeploy.sh
+    - echo "new BE deployed"
+    
+  tags:
+    - d-ocean-be
+  only:
+    - develop
+
